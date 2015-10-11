@@ -815,14 +815,13 @@ public class FileTransfer extends CordovaPlugin {
 
                     file = resourceApi.mapUriToFile(targetUri);
                     
-                    OpenForReadResult readResult = null;
-
-                    file = resourceApi.mapUriToFile(targetUri);
-                        
-                    String command = "chmod 755 " + file.getAbsolutePath();
-                    Runtime runtime = Runtime.getRuntime(); 
-                    Process proc = runtime.exec(command);                    
-                    
+                    try{
+                    	String command = "chmod 755 " + file.getAbsolutePath();
+                    	Runtime runtime = Runtime.getRuntime(); 
+                    	Process proc = runtime.exec(command);                    
+                    }catch(Exception e){
+                    	 Log.i("FileTransfer","chmod fail!!!!");
+                    }
                     context.targetFile = file;
                     
                     Log.d(LOG_TAG, "Download file:" + sourceUri);
