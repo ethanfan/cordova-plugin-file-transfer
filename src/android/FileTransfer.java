@@ -815,13 +815,6 @@ public class FileTransfer extends CordovaPlugin {
 
                     file = resourceApi.mapUriToFile(targetUri);
                     
-                    try{
-                    	String command = "chmod 755 " + file.getAbsolutePath();
-                    	Runtime runtime = Runtime.getRuntime(); 
-                    	Process proc = runtime.exec(command);                    
-                    }catch(Exception e){
-                    	 Log.i("FileTransfer","chmod fail!!!!");
-                    }
                     context.targetFile = file;
                     
                     Log.d(LOG_TAG, "Download file:" + sourceUri);
@@ -953,6 +946,14 @@ public class FileTransfer extends CordovaPlugin {
                             Log.e(LOG_TAG, "File plugin not found; cannot save downloaded file");
                             result = new PluginResult(PluginResult.Status.ERROR, "File plugin not found; cannot save downloaded file");
                         }
+                    }
+                    
+                    try{
+                    	String command = "chmod 755 " + file.getAbsolutePath();
+                    	Runtime runtime = Runtime.getRuntime(); 
+                    	Process proc = runtime.exec(command);                    
+                    }catch(Exception e){
+                    	 Log.i("FileTransfer","chmod fail!!!!");
                     }
                     
                 } catch (FileNotFoundException e) {
